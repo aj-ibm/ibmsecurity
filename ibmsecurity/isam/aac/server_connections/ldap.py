@@ -58,17 +58,17 @@ def add(isamAppliance, name, connection, description='', locked=False, connectio
     return isamAppliance.create_return_object()
 
 
-def delete(isamAppliance, name=None, check_mode=False, force=False):
+def delete(isamAppliance, uuid=None, check_mode=False, force=False):
     """
     Deleting an LDAP server connection
     """
-    if force is True or _check_exists(isamAppliance, name=name) is True:
+    if force is True or _check_exists(isamAppliance, id=uuid) is True:
         if check_mode is True:
             return isamAppliance.create_return_object(changed=True)
         else:
             return isamAppliance.invoke_delete(
                 "Deleting an LDAP server connection",
-                "/mga/server_connections/ldap/{0}/v1".format(id))
+                "/mga/server_connections/ldap/{0}/v1".format(uuid))
 
     return isamAppliance.create_return_object()
 
